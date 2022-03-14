@@ -41,7 +41,7 @@ class TabContainer extends StatefulWidget {
 
 class _TabContainerState extends State<TabContainer> {
   int tabIndex = 0;
-  late List<Widget> listScreens;
+  List<Widget>? listScreens;
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _TabContainerState extends State<TabContainer> {
       home: Scaffold(
         body: IndexedStack(
             index: tabIndex,
-            children: listScreens,
+            children: listScreens!,
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: tabIndex,
