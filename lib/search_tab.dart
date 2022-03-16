@@ -4,6 +4,7 @@ import 'models/itunes_result.dart';
 import 'models/store_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
+import 'package:simple_apple_music/category_list.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({Key? key}) : super (key: key);
@@ -15,8 +16,9 @@ class SearchTab extends StatefulWidget {
 class _SearchTabState extends State<SearchTab> {
   static const TITLE = Text('Search');
   static const SEARCH_ICON = Icon(Icons.search);
+  static const CAT_LIST = CategoryList();
 
-  Widget body = const Text('search');
+  Widget body = CAT_LIST;
   Icon appBarIcon = SEARCH_ICON;
   Widget title = TITLE;
 
@@ -113,34 +115,35 @@ class _SearchTabState extends State<SearchTab> {
           ),
           Expanded(
             child: TextField(
-            cursorColor: Colors.white,
-            decoration: const InputDecoration(
-              hintText: 'Artists, Songs Lyrics and More',
-              hintStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontStyle: FontStyle.italic,
+              autofocus: true,
+              cursorColor: Colors.white,
+              decoration: const InputDecoration(
+                hintText: 'Artists, Songs Lyrics and More',
+                hintStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic,
+                ),
+                focusColor: Colors.white,
+                border: InputBorder.none,
               ),
-              focusColor: Colors.white,
-              border: InputBorder.none,
-            ),
-            style: const TextStyle(
-              color: Colors.white,
-            ),
-            onChanged: (text) {
-              // Perform search when the text is not empty
-              if (text.isNotEmpty) {
-                // Use EasyDebounce to control when to call search API
-                // Set a timer to call API 500ms after the user stop typing
-                // and cancel the call if the timer of the same name is reset
-                // so as to avoid exhausting requests whenever user input change
-                EasyDebounce.debounce(
-                    'debouncer', // Name/tag of the timer
-                    const Duration(milliseconds: 500),
-                        () => search(text)
-                );
-              }
-            },
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              onChanged: (text) {
+                // Perform search when the text is not empty
+                if (text.isNotEmpty) {
+                  // Use EasyDebounce to control when to call search API
+                  // Set a timer to call API 500ms after the user stop typing
+                  // and cancel the call if the timer of the same name is reset
+                  // so as to avoid exhausting requests whenever user input change
+                  EasyDebounce.debounce(
+                      'debouncer', // Name/tag of the timer
+                      const Duration(milliseconds: 500),
+                          () => search(text)
+                  );
+                }
+              },
           ))
         ],);
         body = Container();
@@ -148,7 +151,7 @@ class _SearchTabState extends State<SearchTab> {
         // Remove UI for searching if cancel icon is clicked
         appBarIcon = SEARCH_ICON;
         title = TITLE;
-        body = const Text('search');
+        body = CAT_LIST;
       }
     });
   }
