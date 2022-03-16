@@ -31,7 +31,7 @@ class ApiController {
   // Call search API
   Future<ItunesResult> search(String keyword) async {
     // Call API endpoint
-    final response = await callApi('https://lifeisbbtea.neocities.org/itunes-result-sample.json');
+    final response = await callApi('https://itunes.apple.com/search?term=' + keyword);
 
     // Parse response JSON body to model
     return ItunesResult.fromJson(response);

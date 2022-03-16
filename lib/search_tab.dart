@@ -3,6 +3,7 @@ import 'controller/api_controller.dart';
 import 'models/itunes_result.dart';
 import 'models/store_content.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({Key? key}) : super (key: key);
@@ -12,9 +13,12 @@ class SearchTab extends StatefulWidget {
 }
 
 class _SearchTabState extends State<SearchTab> {
+  static const TITLE = Text('Search');
+  static const SEARCH_ICON = Icon(Icons.search);
+
   Widget body = const Text('search');
-  Icon appBarIcon = const Icon(Icons.search);
-  Widget title = const Text('Search');
+  Icon appBarIcon = SEARCH_ICON;
+  Widget title = TITLE;
 
   void search(String text) {
     setState(() {
@@ -39,19 +43,23 @@ class _SearchTabState extends State<SearchTab> {
                       border: Border.all(color: Colors.white)
                     ),
                     child: ListTile(
+                      // Display leading image
                       leading: CachedNetworkImage(
                         width: 50,
                         height: 50,
                         imageUrl: contents[i].artworkUrl60 ?? "",
+                        // Placeholder for image when loading or error
                         placeholder: (context, url) => Container(width: 50, height: 50, color: Colors.grey,),
                         errorWidget: (context, url, error) => Container(width: 50, height: 50, color: Colors.grey,),
                       ),
+                      // Display track name
                       title: Text(contents[i].trackName ?? "",
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20.0,
                         ),
                       ),
+                      // Display artist name as smaller text
                       subtitle: Text(contents[i].artistName!,
                       style: const TextStyle(
                         color: Colors.grey,
@@ -64,7 +72,7 @@ class _SearchTabState extends State<SearchTab> {
                 return const CircularProgressIndicator();
               }
             } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
+              return Container();
             }
 
             return const CircularProgressIndicator();
@@ -86,6 +94,7 @@ class _SearchTabState extends State<SearchTab> {
             color: Colors.white,
             size: 28,
           ),
+          // Search text field
           title: TextField(
             cursorColor: Colors.white,
             decoration: const InputDecoration(
@@ -102,9 +111,17 @@ class _SearchTabState extends State<SearchTab> {
               color: Colors.white,
             ),
             onChanged: (text) {
+              // Perform search when the text is not empty
               if (text.isNotEmpty) {
-                // Perform search when the text is not empty
-                search(text);
+                // Use EasyDebounce to control when to call search API
+                // Set a timer to call API 500ms after the user stop typing
+                // and cancel the call if the timer of the same name is reset
+                // so as to avoid exhausting requests whenever user input change
+                EasyDebounce.debounce(
+                    'debouncer', // Name/tag of the timer
+                    const Duration(milliseconds: 500),
+                    () => search(text)
+                );
               }
             },
           ),
@@ -112,11 +129,18 @@ class _SearchTabState extends State<SearchTab> {
         body = const Text('searching');
       } else {
         // Remove UI for searching if cancel icon is clicked
-        appBarIcon = const Icon(Icons.search);
-        title = const Text('Search');
+        appBarIcon = SEARCH_ICON;
+        title = TITLE;
         body = const Text('search');
       }
     });
+  }
+
+
+  @override
+  void dispose() {
+    // Cancel debounce
+    EasyDebounce.cancel('debouncer');
   }
 
   @override

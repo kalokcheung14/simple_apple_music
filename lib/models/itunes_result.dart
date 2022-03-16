@@ -5,11 +5,15 @@ class ItunesResult {
   final List<StoreContent>? results;
 
   factory ItunesResult.fromJson(Map<String, dynamic> json) {
-    List<StoreContent> results = (json['results'] as List).map((content) => StoreContent.fromJson(content)).toList();
+    // Parse JSON object list to StoreContent list
+    List<dynamic> resultList = json['results'] as List;
+    List<StoreContent> storeContents = resultList.map(
+            (content) => StoreContent.fromJson(content)
+    ).toList();
 
     return ItunesResult(
       resultCount: json['resultCount'],
-      results: results,
+      results: storeContents,
     );
   }
 
