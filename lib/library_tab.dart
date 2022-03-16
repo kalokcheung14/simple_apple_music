@@ -40,6 +40,7 @@ class _LibraryTabState extends State<LibraryTab> {
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),)
             ),
             GridView.count(
+              childAspectRatio: 4/5.3,
               padding: const EdgeInsets.only(left: 20, right: 20),
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
@@ -57,6 +58,25 @@ class _LibraryTabState extends State<LibraryTab> {
                           width: double.maxFinite,
                           fit: BoxFit.fitWidth,
                         ),
+                        Container(
+                          padding: EdgeInsets.only(top: 5.0),
+                          alignment: Alignment.centerLeft,
+                          child: const Text('Track Name',
+                            style: TextStyle(
+                              fontSize: 18.0
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 5.0),
+                          alignment: Alignment.centerLeft,
+                          child: const Text('Artist Name',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.grey
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
