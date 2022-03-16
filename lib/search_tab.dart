@@ -39,18 +39,17 @@ class _SearchTabState extends State<SearchTab> {
                   // Prepare the data
                   StoreContent content = contents[i];
                   String artworkUrl = content.artworkUrl60 ?? "";
+                  // Use collectionName instead of trackName if it is null
                   String trackName = content.trackName ?? content.collectionName ?? "";
-                  String artistName = content.artistName ?? "";
+                  String artistName = content.artistName ?? "Unknown";
                   String kind = content.kind ?? "";
                   String subText = "";
+                  // Display kind in subtext if it is not null
+                  // Otherwise just display artistName
                   if (kind.isNotEmpty) {
                     subText = kind + " - " + artistName;
                   } else {
                     subText = artistName;
-                  }
-
-                  if (trackName.isEmpty) {
-                    print(content.collectionName);
                   }
 
                   // Construct list row appearance
