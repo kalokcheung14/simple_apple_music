@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'controller/api_controller.dart';
 import 'models/itunes_result.dart';
 import 'models/store_content.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({Key? key}) : super (key: key);
@@ -38,7 +39,13 @@ class _SearchTabState extends State<SearchTab> {
                       border: Border.all(color: Colors.white)
                     ),
                     child: ListTile(
-                      leading: Container(width: 50, height: 50, color: Colors.grey,),
+                      leading: CachedNetworkImage(
+                        width: 50,
+                        height: 50,
+                        imageUrl: contents[i].artworkUrl60 ?? "",
+                        placeholder: (context, url) => Container(width: 50, height: 50, color: Colors.grey,),
+                        errorWidget: (context, url, error) => Container(width: 50, height: 50, color: Colors.grey,),
+                      ),
                       title: Text(contents[i].trackName ?? "",
                         style: const TextStyle(
                           color: Colors.black,
