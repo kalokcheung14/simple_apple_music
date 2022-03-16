@@ -6,6 +6,7 @@ class StoreContent {
   final String? artworkUrl30;
   final String? artworkUrl60;
   final String? artworkUrl100;
+  final String? collectionName;
 
   factory StoreContent.fromJson(Map<String, dynamic> json) {
     return StoreContent(
@@ -15,7 +16,8 @@ class StoreContent {
       trackName: json['trackName'],
       artworkUrl30: json['artworkUrl30'],
       artworkUrl60: json['artworkUrl60'],
-      artworkUrl100: json['artworkUrl100']
+      artworkUrl100: json['artworkUrl100'],
+      collectionName: json['collectionName'],
     );
   }
 
@@ -26,6 +28,7 @@ class StoreContent {
     this.trackName,
     this.artworkUrl30,
     this.artworkUrl60,
-    this.artworkUrl100
+    this.artworkUrl100,
+    this.collectionName,
   });
 }

@@ -36,6 +36,23 @@ class _SearchTabState extends State<SearchTab> {
                 itemCount: contents.length,
                 shrinkWrap: true,
                 itemBuilder: (context, i) {
+                  // Prepare the data
+                  StoreContent content = contents[i];
+                  String artworkUrl = content.artworkUrl60 ?? "";
+                  String trackName = content.trackName ?? content.collectionName ?? "";
+                  String artistName = content.artistName ?? "";
+                  String kind = content.kind ?? "";
+                  String subText = "";
+                  if (kind.isNotEmpty) {
+                    subText = kind + " - " + artistName;
+                  } else {
+                    subText = artistName;
+                  }
+
+                  if (trackName.isEmpty) {
+                    print(content.collectionName);
+                  }
+
                   // Construct list row appearance
                   return Container(
                     padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
@@ -47,20 +64,20 @@ class _SearchTabState extends State<SearchTab> {
                       leading: CachedNetworkImage(
                         width: 50,
                         height: 50,
-                        imageUrl: contents[i].artworkUrl60 ?? "",
+                        imageUrl: artworkUrl,
                         // Placeholder for image when loading or error
                         placeholder: (context, url) => Container(width: 50, height: 50, color: Colors.grey,),
                         errorWidget: (context, url, error) => Container(width: 50, height: 50, color: Colors.grey,),
                       ),
                       // Display track name
-                      title: Text(contents[i].trackName ?? "",
+                      title: Text(trackName,
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 20.0,
                         ),
                       ),
                       // Display artist name as smaller text
-                      subtitle: Text(contents[i].artistName!,
+                      subtitle: Text(subText,
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16.0,
@@ -126,7 +143,7 @@ class _SearchTabState extends State<SearchTab> {
             },
           ),
         );
-        body = const Text('searching');
+        body = Container();
       } else {
         // Remove UI for searching if cancel icon is clicked
         appBarIcon = SEARCH_ICON;
