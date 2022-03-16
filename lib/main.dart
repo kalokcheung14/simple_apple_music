@@ -71,15 +71,15 @@ class _TabContainerState extends State<TabContainer> {
             },
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.library_music),
                 label: 'Library',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.report_problem),
+                icon: Icon(Icons.radio),
                 label: 'Radio',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
+                icon: Icon(Icons.search),
                 label: 'Search'
               ),
             ]),
