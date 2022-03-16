@@ -104,14 +104,15 @@ class _SearchTabState extends State<SearchTab> {
       if (appBarIcon.icon == Icons.search) {
         // Display UI for searching if search icon is clicked
         appBarIcon = const Icon(Icons.cancel);
-        title = ListTile(
-          leading: const Icon(
+        title = Row(
+          children: [
+          const Icon(
             Icons.search,
             color: Colors.white,
             size: 28,
           ),
-          // Search text field
-          title: TextField(
+          Expanded(
+            child: TextField(
             cursorColor: Colors.white,
             decoration: const InputDecoration(
               hintText: 'Artists, Songs Lyrics and More',
@@ -136,12 +137,12 @@ class _SearchTabState extends State<SearchTab> {
                 EasyDebounce.debounce(
                     'debouncer', // Name/tag of the timer
                     const Duration(milliseconds: 500),
-                    () => search(text)
+                        () => search(text)
                 );
               }
             },
-          ),
-        );
+          ))
+        ],);
         body = Container();
       } else {
         // Remove UI for searching if cancel icon is clicked
