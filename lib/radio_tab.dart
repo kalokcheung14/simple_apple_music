@@ -16,6 +16,8 @@ class _RadioTabState extends State<RadioTab> {
       appBar: AppBar(
         title: const Text('Radio'),
         centerTitle: false,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: Column(

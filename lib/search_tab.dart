@@ -81,21 +81,21 @@ class _SearchTabState extends State<SearchTab> {
           children: [
           const Icon(
             Icons.search,
-            color: Colors.white,
+            color: Colors.black,
             size: 28,
           ),
           Expanded(
             child: TextField(
               autofocus: true,
-              cursorColor: Colors.white,
+              cursorColor: Colors.black,
               decoration: const InputDecoration(
                 hintText: 'Artists, Songs Lyrics and More',
                 hintStyle: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 18,
                   fontStyle: FontStyle.italic,
                 ),
-                focusColor: Colors.white,
+                focusColor: Colors.black,
                 border: InputBorder.none,
               ),
               style: const TextStyle(
@@ -138,6 +138,8 @@ class _SearchTabState extends State<SearchTab> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         title: title,
         automaticallyImplyLeading: false,
         actions: [
