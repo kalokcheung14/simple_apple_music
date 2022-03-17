@@ -55,6 +55,14 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - hey_jude.jpeg
+    - to_all_of_you.jpg
+    - let_it_be.jpg
+    - imagine.jpg
+    - help.jpg
+    - music_1.webp
+    - music_hit.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
