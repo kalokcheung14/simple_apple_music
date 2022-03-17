@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'controller/api_controller.dart';
 import 'models/itunes_result.dart';
 import 'models/store_content.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:simple_apple_music/category_list.dart';
+import 'widgets/search_list_tile.dart';
 
 class SearchTab extends StatefulWidget {
   const SearchTab({Key? key}) : super (key: key);
@@ -55,36 +55,7 @@ class _SearchTabState extends State<SearchTab> {
                   }
 
                   // Construct list row appearance
-                  return Container(
-                    padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white)
-                    ),
-                    child: ListTile(
-                      // Display leading image
-                      leading: CachedNetworkImage(
-                        width: 50,
-                        height: 50,
-                        imageUrl: artworkUrl,
-                        // Placeholder for image when loading or error
-                        placeholder: (context, url) => Container(width: 50, height: 50, color: Colors.grey,),
-                        errorWidget: (context, url, error) => Container(width: 50, height: 50, color: Colors.grey,),
-                      ),
-                      // Display track name
-                      title: Text(trackName,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 20.0,
-                        ),
-                      ),
-                      // Display artist name as smaller text
-                      subtitle: Text(subText,
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16.0,
-                      ),),
-                    ),
-                  );
+                  return SearchListTile(trackName: trackName, artworkUrl: artworkUrl, subText: subText);
                 });
               } else {
                 return const CircularProgressIndicator();
