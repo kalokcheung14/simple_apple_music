@@ -1,8 +1,31 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'widgets/category_tile.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({Key? key}) : super(key: key);
+
+  static const List<String> categoryList = [
+    'Spatial Audio',
+    'Hey Siri, Play...',
+    'Cantopop',
+    'K-Pop',
+    'International',
+    'Mandopop',
+    'J-Pop',
+    'Charts',
+    'Anime',
+    'R&B',
+    'Classical',
+    'Chill',
+    'Hip-Hop/Rap',
+    'Sleep',
+    'Jazz',
+    'Fitness',
+    'Rock',
+    'Essentials',
+    'Feel Good',
+    'Romance',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,31 +47,8 @@ class CategoryList extends StatelessWidget {
             crossAxisSpacing: 1.0,
             mainAxisSpacing: 1.0,
             shrinkWrap: true,
-            children: List.generate(20, (index) {
-              // Generate random color for category tiles
-              Color randomColor = Colors.primaries[Random().nextInt(Colors.primaries.length)];
-
-              return Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: GridTile(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: randomColor,
-                      borderRadius: BorderRadius.circular(15)
-                    ),
-                  ),
-                  footer: Container(
-                    padding: const EdgeInsets.all(15.0),
-                    child: const Text(
-                        'Category',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                    ),
-                  ),
-                ),
-              );
+            children: List.generate(categoryList.length, (index) {
+              return CategoryTile(categoryName: categoryList[index]);
             },),
           ),
         ),
