@@ -1,31 +1,11 @@
 import 'package:flutter/material.dart';
 import 'widgets/category_tile.dart';
+import 'controller/sample_data_helper.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({Key? key}) : super(key: key);
 
-  static const List<String> categoryList = [
-    'Spatial Audio',
-    'Hey Siri, Play...',
-    'Cantopop',
-    'K-Pop',
-    'International',
-    'Mandopop',
-    'J-Pop',
-    'Charts',
-    'Anime',
-    'R&B',
-    'Classical',
-    'Chill',
-    'Hip-Hop/Rap',
-    'Sleep',
-    'Jazz',
-    'Fitness',
-    'Rock',
-    'Essentials',
-    'Feel Good',
-    'Romance',
-  ];
+  static final List<String> categoryList = SampleDataHelper().getSampleCategoryList();
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class LibraryTile extends StatelessWidget {
   const LibraryTile({
@@ -20,13 +19,11 @@ class LibraryTile extends StatelessWidget {
       child: GridTile(
         child: Column(
           children: [
-            CachedNetworkImage(
-                imageUrl: artworkUrl ?? "",
-                width: double.maxFinite,
-                fit: BoxFit.fitWidth,
-                height: 150,
-                placeholder: (context, url) => Container(height: 150, width: 150, color: Colors.grey,),
-                errorWidget: (context, url, error) => Container(height: 150, width: 150, color: Colors.grey,)
+            Image.asset(
+              artworkUrl ?? "",
+              width: double.maxFinite,
+              fit: BoxFit.fitWidth,
+              height: 150,
             ),
             Container(
               padding: const EdgeInsets.only(top: 5.0),

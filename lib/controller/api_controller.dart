@@ -5,6 +5,7 @@ import 'package:simple_apple_music/models/itunes_result.dart';
 import 'package:http/http.dart' as http;
 
 class ApiController {
+  // Singleton
   static final _instance = ApiController._internal();
 
   factory ApiController()

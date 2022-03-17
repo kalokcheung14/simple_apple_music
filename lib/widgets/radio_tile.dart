@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class RadioTile extends StatelessWidget {
   const RadioTile({
@@ -38,8 +37,8 @@ class RadioTile extends StatelessWidget {
             width: double.maxFinite,
             height: 400,
             child: GridTile(
-                child: CachedNetworkImage(
-                  imageUrl: imageUrl ?? "",
+                child: Image.asset(
+                  imageUrl ?? "",
                   fit: BoxFit.cover,
                 ),
                 footer: GridTileBar(

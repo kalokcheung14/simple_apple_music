@@ -99,7 +99,7 @@ class _SearchTabState extends State<SearchTab> {
                 border: InputBorder.none,
               ),
               style: const TextStyle(
-                color: Colors.white,
+                color: Colors.black,
               ),
               onChanged: (text) {
                 // Perform search when the text is not empty
