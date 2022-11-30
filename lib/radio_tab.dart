@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_apple_music/widgets/radio_tile.dart';
-import 'controller/sample_data_helper.dart';
+import 'helpers/sample_data_helper.dart';
 
 class RadioTab extends StatefulWidget {
   const RadioTab({Key? key}) : super (key: key);

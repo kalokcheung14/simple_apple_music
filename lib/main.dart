@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_apple_music/cubits/media_cubit.dart';
+import 'package:simple_apple_music/repositories/media_repository.dart';
+import 'package:simple_apple_music/states/search_state.dart';
 import 'package:simple_apple_music/library_tab.dart';
 import 'package:simple_apple_music/radio_tab.dart';
 import 'package:simple_apple_music/search_tab.dart';
 
 void main() {
-  runApp(const MyApp());
+  // Inject repository into app
+  runApp(ITunesApp(mediaRepository: MediaRepository()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class ITunesApp extends StatelessWidget {
+  const ITunesApp({Key? key, required MediaRepository mediaRepository})
+      : _mediaRepository = mediaRepository,
+        super(key: key);
+
+  final MediaRepository _mediaRepository;
 
   // This widget is the root of your application.
   @override
@@ -16,18 +25,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Apple Music',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const TabContainer(),
+      home: MultiBlocProvider(
+        // Provide cubit with repository to sub tree
+        providers: [
+          BlocProvider<MediaCubit>(
+              create: (_) => MediaCubit(mediaRepository: _mediaRepository)
+          ),
+          BlocProvider<SearchCubit>(
+              create: (_) => SearchCubit()
+          )
+        ],
+        child: const TabContainer(),
+      ),
     );
   }
 }
@@ -46,7 +57,8 @@ class _TabContainerState extends State<TabContainer> {
   @override
   void initState() {
     super.initState();
-    listScreens = [
+    // Setup for tabs
+    listScreens = const [
       LibraryTab(),
       RadioTab(),
       SearchTab(),

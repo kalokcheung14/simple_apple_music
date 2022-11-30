@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'widgets/category_tile.dart';
-import 'controller/sample_data_helper.dart';
+import 'helpers/sample_data_helper.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({Key? key}) : super(key: key);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_menu_list/flutter_menu_list.dart';
 import 'widgets/library_tile.dart';
 import 'models/song.dart';
-import 'controller/sample_data_helper.dart';
+import 'helpers/sample_data_helper.dart';
 
 class LibraryTab extends StatefulWidget {
   const LibraryTab({Key? key}) : super (key: key);
@@ -40,6 +40,7 @@ class _LibraryTabState extends State<LibraryTab> {
                 ])
             ]),
             Container(
+              color: Colors.white,
               padding: const EdgeInsets.only(left: 25.0, top: 12.0, bottom: 12.0, right: 8.0),
               alignment: Alignment.centerLeft,
               child: const Text('Recently Added',
