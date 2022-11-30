@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_apple_music/cubits/media_cubit.dart';
+import 'package:simple_apple_music/cubits/tab_cubit.dart';
 import 'package:simple_apple_music/repositories/media_repository.dart';
 import 'package:simple_apple_music/states/search_state.dart';
 import 'package:simple_apple_music/library_tab.dart';
@@ -35,6 +36,9 @@ class ITunesApp extends StatelessWidget {
           ),
           BlocProvider<SearchCubit>(
               create: (_) => SearchCubit()
+          ),
+          BlocProvider<TabCubit>(
+              create: (_) => TabCubit()
           )
         ],
         child: const TabContainer(),
@@ -43,58 +47,46 @@ class ITunesApp extends StatelessWidget {
   }
 }
 
-class TabContainer extends StatefulWidget {
+class TabContainer extends StatelessWidget {
   const TabContainer({Key? key}) : super (key: key);
 
-  @override
-  State<TabContainer> createState() => _TabContainerState();
-}
-
-class _TabContainerState extends State<TabContainer> {
-  int tabIndex = 0;
-  List<Widget>? listScreens;
-
-  @override
-  void initState() {
-    super.initState();
-    // Setup for tabs
-    listScreens = const [
-      LibraryTab(),
-      RadioTab(),
-      SearchTab(),
-    ];
-  }
+  final List<Widget>? listScreens = const [
+    RadioTab(),
+    LibraryTab(),
+    SearchTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       color: Colors.blue,
-      home: Scaffold(
-        body: IndexedStack(
-            index: tabIndex,
-            children: listScreens!,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: tabIndex,
-            onTap: (int index) {
-              setState(() {
-                tabIndex = index;
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.library_music),
-                label: 'Library',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.radio),
-                label: 'Radio',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'Search'
-              ),
-            ]),
-        ));
+      home: BlocBuilder<TabCubit, int>(
+        builder: (context, index) {
+          return Scaffold(
+            body: IndexedStack(
+              index: index,
+              children: listScreens!,
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+                currentIndex: index,
+                onTap: (int index) => context.read<TabCubit>().selectTab(index),
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.radio),
+                    label: 'Radio',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.library_music),
+                    label: 'Library',
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.search),
+                      label: 'Search'
+                  ),
+                ]),
+          );
+        }
+      )
+    );
   }
 }
