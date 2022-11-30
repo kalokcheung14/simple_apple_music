@@ -106,56 +106,61 @@ class _SearchTabState extends State<SearchTab> {
           ],
           centerTitle: false,
         ),
-        body: Center(child: BlocBuilder<SearchCubit, bool>(
-          builder: (context, isSearch) {
-            if (isSearch) {
-              return BlocBuilder<MediaCubit, MediaState>(builder: (context, state) {
-                if (state is MediaInitial) {
-                  return const CircularProgressIndicator();
-                } else if (state is MediaLoaded) {
-                  final result = state.itunesResult;
-                  List<StoreContent>? contents = result.results;
+        body: Center(
+          child: Container(
+            color: Colors.white,
+            child: BlocBuilder<SearchCubit, bool>(
+            builder: (context, isSearch) {
+              if (isSearch) {
+                return BlocBuilder<MediaCubit, MediaState>(builder: (context, state) {
+                  if (state is MediaInitial) {
+                    return const CircularProgressIndicator();
+                  } else if (state is MediaLoaded) {
+                    final result = state.itunesResult;
+                    List<StoreContent>? contents = result.results;
 
-                  if (contents != null) {
-                    return ListView.builder(
-                        padding: const EdgeInsets.all(0.0),
-                        itemCount: contents.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, i) {
-                          // Prepare the data
-                          StoreContent content = contents[i];
-                          String artworkUrl = content.artworkUrl60 ?? "";
-                          // Use collectionName instead of trackName if it is null
-                          String trackName = content.trackName ??
-                              content.collectionName ?? "";
-                          String artistName = content.artistName ?? "Unknown";
-                          String kind = content.kind ?? "";
-                          String subText = "";
-                          // Display kind in subtext if it is not null
-                          // Otherwise just display artistName
-                          if (kind.isNotEmpty) {
-                            subText = kind + " - " + artistName;
-                          } else {
-                            subText = artistName;
-                          }
+                    if (contents != null) {
+                      return ListView.builder(
+                          padding: const EdgeInsets.all(0.0),
+                          itemCount: contents.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, i) {
+                            // Prepare the data
+                            StoreContent content = contents[i];
+                            String artworkUrl = content.artworkUrl60 ?? "";
+                            // Use collectionName instead of trackName if it is null
+                            String trackName = content.trackName ??
+                                content.collectionName ?? "";
+                            String artistName = content.artistName ?? "Unknown";
+                            String kind = content.kind ?? "";
+                            String subText = "";
+                            // Display kind in subtext if it is not null
+                            // Otherwise just display artistName
+                            if (kind.isNotEmpty) {
+                              subText = kind + " - " + artistName;
+                            } else {
+                              subText = artistName;
+                            }
 
-                          // Construct list row appearance
-                          return SearchListTile(trackName: trackName,
-                              artworkUrl: artworkUrl,
-                              subText: subText);
-                        });
+                            // Construct list row appearance
+                            return SearchListTile(trackName: trackName,
+                                artworkUrl: artworkUrl,
+                                subText: subText);
+                          });
+                    } else {
+                      return Container();
+                    }
                   } else {
                     return Container();
                   }
-                } else {
-                  return Container();
-                }
-              });
-            } else {
-              return CAT_LIST;
-            }
-          },
-        ))
+                });
+              } else {
+                return CAT_LIST;
+              }
+            },
+          )
+        )
+      )
     );
   }
 }

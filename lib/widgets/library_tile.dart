@@ -37,7 +37,6 @@ class LibraryTile extends StatelessWidget {
               ),
             ),
             Container(
-              padding: const EdgeInsets.only(top: 5.0),
               alignment: Alignment.centerLeft,
               child: Text(artistName ?? "",
                 maxLines: 1,

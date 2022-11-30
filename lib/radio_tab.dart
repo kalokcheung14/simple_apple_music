@@ -33,8 +33,11 @@ class _RadioTabState extends State<RadioTab> {
         foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: tiles,
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: tiles,
+          )
         )
       )
     );

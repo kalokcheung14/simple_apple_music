@@ -46,26 +46,29 @@ class _LibraryTabState extends State<LibraryTab> {
               child: const Text('Recently Added',
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),)
             ),
-            GridView.count(
-              childAspectRatio: 4/5.3,
-              padding: const EdgeInsets.only(left: 20, right: 20),
-              // Disable scrolling
-              physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
-              crossAxisSpacing: 10.0,
-              mainAxisSpacing: 10.0,
-              shrinkWrap: true,
-              children: List.generate(songs.length, (index) {
-                Song song = songs[index];
+            Container(
+              color: Colors.white,
+              child: GridView.count(
+                childAspectRatio: 4/5.3,
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                // Disable scrolling
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 10.0,
+                mainAxisSpacing: 10.0,
+                shrinkWrap: true,
+                children: List.generate(songs.length, (index) {
+                  Song song = songs[index];
 
-                // Display a song details using LibraryTile
-                return LibraryTile(
-                  trackName: song.trackName,
-                  artistName: song.artistName,
-                  artworkUrl: song.artworkUrl,
-                );
-              },),
-            ),
+                  // Display a song details using LibraryTile
+                  return LibraryTile(
+                    trackName: song.trackName,
+                    artistName: song.artistName,
+                    artworkUrl: song.artworkUrl,
+                  );
+                },),
+              ),
+            )
           ],
         )),
       ),
