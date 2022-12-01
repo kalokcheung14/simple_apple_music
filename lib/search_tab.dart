@@ -4,6 +4,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:simple_apple_music/cubits/media_cubit.dart';
 import 'package:simple_apple_music/states/media_state.dart';
 import 'package:simple_apple_music/states/search_state.dart';
+import 'package:simple_apple_music/widgets/title_text_style.dart';
 import 'models/store_content.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:simple_apple_music/category_list.dart';
@@ -37,6 +38,7 @@ class _SearchTabState extends State<SearchTab> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          titleTextStyle: const TitleTextStyle(),
           elevation: 0,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
@@ -119,7 +121,7 @@ class _SearchTabState extends State<SearchTab> {
                     return Container(
                       constraints: const BoxConstraints.expand(),
                       child: Center(
-                        child: LoadingAnimationWidget.staggeredDotsWave(
+                        child: LoadingAnimationWidget.threeArchedCircle(
                           color: Colors.pinkAccent,
                           size: 60,
                         )
@@ -131,6 +133,8 @@ class _SearchTabState extends State<SearchTab> {
 
                     if (contents != null) {
                       return ListView.builder(
+                          // Hide keyboard when the list view is touched
+                          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                           padding: const EdgeInsets.all(0.0),
                           itemCount: contents.length,
                           shrinkWrap: true,

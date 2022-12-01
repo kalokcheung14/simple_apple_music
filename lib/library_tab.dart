@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_menu_list/flutter_menu_list.dart';
+import 'package:simple_apple_music/widgets/custom_app_bar.dart';
+import 'package:simple_apple_music/widgets/title_text_style.dart';
 import 'widgets/library_tile.dart';
 import 'models/song.dart';
 import 'helpers/sample_data_helper.dart';
@@ -17,12 +19,7 @@ class _LibraryTabState extends State<LibraryTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        title: const Text('Library'),
-        centerTitle: false,
-      ),
+      appBar: CustomAppBar.fromString(title: "Library"),
       body: Center(
         child: SingleChildScrollView(child: Column(
           children: [

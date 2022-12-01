@@ -26,7 +26,8 @@ class ITunesApp extends StatelessWidget {
     return MaterialApp(
       title: 'Apple Music',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        backgroundColor: Colors.white,
+        primaryColor: Colors.pinkAccent,
       ),
       home: MultiBlocProvider(
         // Provide cubit with repository to sub tree
@@ -59,7 +60,7 @@ class TabContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      color: Colors.blue,
+      color: Colors.pinkAccent,
       home: BlocBuilder<TabCubit, int>(
         builder: (context, index) {
           return Scaffold(
@@ -68,6 +69,7 @@ class TabContainer extends StatelessWidget {
               children: listScreens!,
             ),
             bottomNavigationBar: BottomNavigationBar(
+              selectedItemColor: Colors.pinkAccent,
                 currentIndex: index,
                 onTap: (int index) => context.read<TabCubit>().selectTab(index),
                 items: const [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_apple_music/widgets/custom_app_bar.dart';
 import 'package:simple_apple_music/widgets/radio_tile.dart';
 import 'helpers/sample_data_helper.dart';
 
@@ -26,12 +27,7 @@ class _RadioTabState extends State<RadioTab> {
     }
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Radio'),
-        centerTitle: false,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
+      appBar: CustomAppBar.fromString(title: 'Radio'),
       body: SingleChildScrollView(
         child: Container(
           color: Colors.white,
