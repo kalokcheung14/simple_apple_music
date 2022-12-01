@@ -39,6 +39,7 @@ dependencies:
   easy_debounce: ^2.0.2+1
   flutter_menu_list: ^0.0.4
   flutter_bloc: ^8.1.1
+  loading_animation_widget: ^1.2.0+3
 
 dev_dependencies:
   flutter_test:

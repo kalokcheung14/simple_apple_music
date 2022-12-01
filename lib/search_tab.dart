@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:simple_apple_music/cubits/media_cubit.dart';
 import 'package:simple_apple_music/states/media_state.dart';
 import 'package:simple_apple_music/states/search_state.dart';
@@ -36,6 +37,7 @@ class _SearchTabState extends State<SearchTab> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           title: BlocBuilder<SearchCubit, bool>(
@@ -114,7 +116,15 @@ class _SearchTabState extends State<SearchTab> {
               if (isSearch) {
                 return BlocBuilder<MediaCubit, MediaState>(builder: (context, state) {
                   if (state is MediaInitial) {
-                    return const CircularProgressIndicator();
+                    return Container(
+                      constraints: const BoxConstraints.expand(),
+                      child: Center(
+                        child: LoadingAnimationWidget.staggeredDotsWave(
+                          color: Colors.pinkAccent,
+                          size: 60,
+                        )
+                      )
+                    );
                   } else if (state is MediaLoaded) {
                     final result = state.itunesResult;
                     List<StoreContent>? contents = result.results;
@@ -148,10 +158,14 @@ class _SearchTabState extends State<SearchTab> {
                                 subText: subText);
                           });
                     } else {
-                      return Container();
+                      return Container(
+                        color: Colors.white,
+                      );
                     }
                   } else {
-                    return Container();
+                    return Container(
+                      color: Colors.white,
+                    );
                   }
                 });
               } else {
